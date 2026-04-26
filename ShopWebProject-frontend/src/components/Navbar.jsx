@@ -3,46 +3,51 @@ import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import './Navbar.css';
 
-import homeIcon from '../assets/icons/home.png';
-import marketplaceIcon from '../assets/icons/marketplace.png';
-import cartIcon from '../assets/icons/shopping-cart.png';
-import userIcon from '../assets/icons/user.png';
-
 function Navbar() {
   const { isLogin, logout } = useContext(AuthContext);
 
   return (
-    <nav className='navbar'>    
-      <div className='menu'>
-        <NavLink to='/'>
-          <img src={homeIcon} alt='home' title='Home'/>
+    <nav className='navbar'>
+      <div className='navbar-container'>
+        {/* Brand Logo */}
+        <NavLink to='/' className='navbar-brand'>
+          BookWorms
         </NavLink>
-        <NavLink to='/marketplace'>
-          <img src={marketplaceIcon} alt='marketplace' title='Marketplace'/>
-        </NavLink>
-        <NavLink to='/cart'>
-          <img src={cartIcon} alt='cart' title='Cart'/>
-        </NavLink>
-      </div>
 
-      <div className='auth'>
-        {isLogin ? (
-          <>
-            <div className='user'>
-              <div className='user-trigger'><img src={userIcon} alt='user'/></div>
+        {/* Navigation Links */}
+        <div className='navbar-menu'>
+          <NavLink to='/' className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>
+            Home
+          </NavLink>
+          <NavLink to='/marketplace' className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>
+            Products
+          </NavLink>
+          <NavLink to='/about' className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>
+            About Us
+          </NavLink>
+          <NavLink to='/contact' className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>
+            Contact Us
+          </NavLink>
+          <NavLink to='/cart' className='navbar-link cart-link'>
+            Cart
+            <span className='cart-icon'>🛒</span>
+          </NavLink>
+        </div>
 
-              <div className='dropdown'>
-                <NavLink to='/profile'>Me</NavLink>
-                <button onClick={logout}>Logout</button>
-              </div>
+        {/* Actions */}
+        <div className='navbar-auth'>
+          {isLogin ? (
+            <div className='user-menu'>
+              <button className='user-button'>Profile</button>
+              <button onClick={logout} className='logout-button'>Logout</button>
             </div>
-          </> 
           ) : (
-          <>
-            <NavLink to='/login'>Login</NavLink>
-            <NavLink to='/register' className='register'>Register</NavLink>
-          </>
-        )}
+            <>
+              <NavLink to='/login' className='login-button'>Login</NavLink>
+              <NavLink to='/register' className='register-button'>Register</NavLink>
+            </>
+          )}
+        </div>
       </div>
     </nav>
   );

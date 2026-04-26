@@ -13,7 +13,6 @@ function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const result = await AuthService.login(email, password, remember);
       login(result.token);
@@ -22,59 +21,88 @@ function LoginPage() {
         return;
       }
       navigate('/');
-    } catch(error) {
+    } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <div className='login-container'>
+    <div className="login-page">
+      <header className="login-header">
+        <Link to="/" className="brand-name">
+          BookWorms
+        </Link>
+      </header>
 
-      <form className='login-card' onSubmit={handleSubmit}>
-
-        <h2>Login</h2>
-
-        <div className='form-group'>
-          <label>Email</label>
-          <input
-            type='email'
-            placeholder='Enter your email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+      <main className="login-main">
+        {/* Left: Library Image + Quote */}
+        <div className="login-visual">
+          <img
+            src="/library.jpg"
+            alt="Library"
+            className="library-image"
           />
+          <div className="quote-overlay">
+            <blockquote className="quote-text">
+              "A room without books is like a body without a soul."
+            </blockquote>
+            <cite className="quote-author">— MARCUS TULLIUS CICERO</cite>
+          </div>
         </div>
 
-        <div className='form-group'>
-          <label>Password</label>
-          <input
-            type='password'
-            placeholder='Enter your password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        {/* Right: Login Form */}
+        <div className="login-form-panel">
+          <div className="login-form-inner">
+            <h1 className="login-title">Welcome Back</h1>
+            <p className="login-subtitle">Continue your journey through the collection.</p>
+
+            <form onSubmit={handleSubmit}>
+              <div className="field-group">
+                <label className="field-label">EMAIL ADDRESS</label>
+                <input
+                  type="email"
+                  className="field-input"
+                  placeholder="reader@thearchive.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+
+              <div className="field-group">
+                <div className="field-label-row">
+                  <label className="field-label">PASSWORD</label>
+                  <Link to="/forgot-password" className="forgot-link">FORGOT?</Link>
+                </div>
+                <input
+                  type="password"
+                  className="field-input"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+
+              <div className="remember-row">
+                <label className="remember-label">
+                  <input
+                    type="checkbox"
+                    className="remember-checkbox"
+                    checked={remember}
+                    onChange={() => setRemember(!remember)}
+                  />
+                  <span>Remember this device</span>
+                </label>
+              </div>
+
+              <button type="submit" className="signin-btn">SIGN IN</button>
+            </form>
+
+            <div className="register-section">
+              <p className="register-text">New to BookWorms?</p>
+              <Link to="/register" className="create-account-link">CREATE ACCOUNT</Link>
+            </div>
+          </div>
         </div>
-
-        <div className='login-options'>
-          <label>
-            <input
-              type='checkbox'
-              checked={remember}
-              onChange={() => setRemember(!remember)}
-            />
-            Remember me
-          </label>
-        </div>
-
-        <button type='submit' className='login-btn'>
-          Login
-        </button>
-
-        <p className='register-link'>
-          Don't have an account? <Link to='/register'>Register</Link>
-        </p>
-
-      </form>
-
+      </main>
     </div>
   );
 }

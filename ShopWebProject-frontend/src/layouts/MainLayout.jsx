@@ -1,11 +1,15 @@
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import { Outlet } from 'react-router-dom';
 
 function MainLayout() {
   return (
     <>
       <Navbar />
-      <Outlet />
+      <main style={{ marginTop: '96px' }}>
+        <Outlet />
+      </main>
+      <Footer />
     </>
   );
 }
