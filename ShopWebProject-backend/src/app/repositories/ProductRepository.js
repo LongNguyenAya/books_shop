@@ -31,7 +31,9 @@ class ProductRepository {
                         row.price,
                         row.quantity, 
                         row.categoryid, 
-                        row.categoryname
+                        row.categoryname,
+                        row.soldcount,
+                        row.isactive
                     )
                 ),
                 total,
@@ -71,7 +73,9 @@ class ProductRepository {
                 row.price,
                 row.quantity, 
                 row.categoryid, 
-                row.categoryname
+                row.categoryname,
+                row.soldcount,
+                row.isactive
             );
         } catch(error) {
             console.log(`SQL ERROR: ${error}`);
@@ -79,14 +83,14 @@ class ProductRepository {
         }
     }
 
-    async createRepo(name, description, imageurl, price, quantity, categoryid) {
+    async createRepo(name, description, imageurl, price, quantity, categoryname) {
         try {
             const result = await pool.query(
                 `INSERT INTO products
-                (productname, description, imageurl, price, quantity, categoryid)
+                (productname, description, imageurl, price, quantity, categoryname)
                 VALUES ($1,$2,$3,$4,$5,$6)
                 RETURNING *`,
-                [name, description, imageurl, price, quantity, categoryid]
+                [name, description, imageurl, price, quantity, categoryname]
             );
 
             const row = result.rows[0];
@@ -98,7 +102,7 @@ class ProductRepository {
                 row.imageurl,
                 row.price, 
                 row.quantity, 
-                row.categoryid
+                row.categoryname
             );
         } catch(error) {
             console.log(`SQL ERROR: ${error}`);
@@ -120,7 +124,7 @@ class ProductRepository {
         }
     }
 
-    async updateRepo(id, name, description, imageurl, price, quantity, categoryid) {
+    async updateRepo(id, name, description, imageurl, price, quantity, categoryname) {
         try {
             const result = await pool.query(
                 `UPDATE products
@@ -129,11 +133,11 @@ class ProductRepository {
                     imageurl=$3,
                     price=$4,
                     quantity=$5,
-                    categoryid=$6,
+                    categoryname=$6,
                     updatedat=NOW()
                 WHERE productid=$7
                 RETURNING *`,
-                [name, description, imageurl, price, quantity, categoryid, id]
+                [name, description, imageurl, price, quantity, categoryname, id]
             );
 
             const row = result.rows[0];
@@ -145,7 +149,7 @@ class ProductRepository {
                 row.imageurl,
                 row.price, 
                 row.quantity, 
-                row.categoryid
+                row.categoryname
             );      
         } catch(error) {
             console.log(`SQL ERROR: ${error}`);

@@ -27,10 +27,10 @@ class ProductController {
 
     // [POST] /api/products
     async create(req, res) {
-        const { name, description, price, quantity, categoryid } = req.body;
+        const { name, description, price, quantity, categoryname } = req.body;
         const file = req.file;
         try {
-            const newProduct = await ProductService.createNewProduct(name, description, price, quantity, categoryid, file);
+            const newProduct = await ProductService.createNewProduct(name, description, price, quantity, categoryname, file);
             res.json(newProduct);
         } catch(error) {
             res.status(400).json({ error: error.message });
@@ -51,9 +51,9 @@ class ProductController {
     // [PUT] /api/products/:id
     async update(req, res) {
         const id = req.params.id;
-        const { name, description, price, quantity, categoryid } = req.body;
+        const { name, description, price, quantity, categoryname } = req.body;
         try {
-            const updatedCategory = await ProductService.updateProduct(id, name, description, price, quantity, categoryid);
+            const updatedCategory = await ProductService.updateProduct(id, name, description, price, quantity, categoryname);
             res.json(updateProduct);
         } catch(error) {
             res.status(400).json({ error: `Cant update product with id=${id}` });

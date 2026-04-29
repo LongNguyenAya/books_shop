@@ -13,7 +13,7 @@ class ProductService {
         return product;
     }
 
-    async createNewProduct(name, description, price, quantity, categoryid, file) {
+    async createNewProduct(name, description, price, quantity, categoryname, file) {
         const uploadResult = await new Promise((resolve, reject) => {
             const stream = cloudinary.uploader.upload_stream(
                 { folder: 'products' },
@@ -38,7 +38,7 @@ class ProductService {
             imageUrl,
             price,
             quantity,
-            categoryid
+            categoryname
         );
 
         return newProduct;
@@ -49,8 +49,8 @@ class ProductService {
         return deletedProduct;
     }
 
-    async updateProduct(id, name, description, price, quantity, categoryid) {
-        const updatedProduct = await ProductRepository.updateRepo(id, name, description, price, quantity, categoryid);
+    async updateProduct(id, name, description, price, quantity, categoryname) {
+        const updatedProduct = await ProductRepository.updateRepo(id, name, description, price, quantity, categoryname);
         return updatedProduct;
     }
 
