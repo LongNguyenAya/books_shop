@@ -62,7 +62,7 @@ function LoginPage() {
                 <input
                   type="email"
                   className="field-input"
-                  placeholder="reader@thearchive.com"
+                  placeholder="reader@bookworms.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />

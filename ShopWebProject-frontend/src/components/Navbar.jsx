@@ -38,7 +38,7 @@ function Navbar() {
         <div className='navbar-auth'>
           {isLogin ? (
             <div className='user-menu'>
-              <button className='user-button'>Profile</button>
+              <NavLink to='/profile' className='user-button'>Profile</NavLink>
               <button onClick={logout} className='logout-button'>Logout</button>
             </div>
           ) : (

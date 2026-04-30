@@ -64,6 +64,33 @@ class AuthService {
 
         return data;
     }
+
+    // Xử lý quên mật khẩu
+    async resetPassword(email, newPassword, confirmNewPassword) {
+        if (!email || !newPassword || !confirmNewPassword) {
+            throw new Error('Please input all information');
+        }
+
+        const res = await fetch('http://localhost:3000/api/auth/reset-password', {
+            method:'PATCH',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({ 
+                email,
+                newPassword,
+                confirmNewPassword
+            })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            throw new Error(data.message);
+        }
+
+        return data;
+    }
 }
 
 export default new AuthService();

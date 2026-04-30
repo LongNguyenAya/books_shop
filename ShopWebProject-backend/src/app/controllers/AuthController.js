@@ -22,6 +22,18 @@ class AuthController {
             res.status(400).json({ error: error.message });
         }
     }
+
+    // [PATCH] /api/auth/reset-password
+    async resetPassword(req, res) {
+        const { email, newPassword, confirmNewPassword } = req.body;
+        try {
+            const result = await AuthService.resetPassword(email, newPassword, confirmNewPassword);
+            res.json(result);
+        } catch(error) {
+            console.error(error);
+            res.status(400).json({ error: error.message });
+        }
+    }
 }
 
 module.exports = new AuthController();

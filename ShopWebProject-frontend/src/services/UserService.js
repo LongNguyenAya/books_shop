@@ -37,6 +37,11 @@ class UserService {
             throw new Error(data.message);
         }
 
+        if (res.status === 401) {
+            localStorage.removeItem("token");
+            throw status(401).json({ message: 'Unauthorized' });
+        }
+
         return data;
     }
 

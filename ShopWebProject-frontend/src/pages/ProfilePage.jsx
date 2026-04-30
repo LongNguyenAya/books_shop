@@ -21,6 +21,11 @@ function ProfilePage() {
         setAvatar(data.avatarurl);
       } catch(error) {
         console.error('Failed to fetch user profile:', error);
+        
+        if(error.message === 'Unauthorized') {
+          alert('Session expired. Please log in again.');
+          Navigate('/login');
+        }
       }
     }
 

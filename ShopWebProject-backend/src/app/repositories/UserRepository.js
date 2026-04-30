@@ -2,10 +2,12 @@ const pool = require('../../config/db');
 const User = require('../models/User');
 
 class UserRepository {
-    async findByEmailRepo(email) {
+    async findByEmailRepo(email, client=null) {
         try {
-            const result = await pool.query(
-                `SELECT userid, username, password, email, avatarurl, role
+            const executor = client || pool;
+
+            const result = await executor.query(
+                `SELECT userid, username, password_hash, email, avatarurl, role
                 FROM users
                 WHERE email = $1`,
                 [email]
@@ -20,7 +22,7 @@ class UserRepository {
             return new User(
                 row.userid, 
                 row.username, 
-                row.password, 
+                row.password_hash,
                 row.email,
                 row.avatarurl,
                 row.role
@@ -31,10 +33,12 @@ class UserRepository {
         }
     }
 
-    async createRepo(username, password, email) {
+    async createRepo(username, password, email, client=null) {
         try {
-            const result = await pool.query(
-                `INSERT INTO users(username, password, email)
+            const executor = client || pool;
+
+            const result = await executor.query(
+                `INSERT INTO users(username, password_hash, email)
                 VALUES ($1,$2,$3)
                 RETURNING *`,
                 [username, password, email]
@@ -45,7 +49,7 @@ class UserRepository {
             return new User(
                 row.userid, 
                 row.username, 
-                row.password,
+                row.password_hash,
                 row.email, 
                 row.avatarurl,
                 row.role
@@ -76,7 +80,7 @@ class UserRepository {
             return new User(
                 row.userid, 
                 row.username, 
-                row.password,
+                row.password_hash,
                 row.email, 
                 row.avatarurl,
                 row.role
@@ -90,7 +94,7 @@ class UserRepository {
     async getUserById(userid) {
         try {
             const result = await pool.query(
-                `SELECT userid, username, password, email, avatarurl, role
+                `SELECT userid, username, password_hash, email, avatarurl, role
                 FROM users
                 WHERE userid = $1`,
                 [userid]
@@ -105,7 +109,7 @@ class UserRepository {
             return new User(
                 row.userid, 
                 row.username, 
-                row.password,
+                row.password_hash,
                 row.email, 
                 row.avatarurl,
                 row.role
@@ -123,7 +127,7 @@ class UserRepository {
                 SET username = $1,
                     updatedat = NOW()
                 WHERE userid = $2
-                RETURNING userid, username, password, email, avatarurl, role`,
+                RETURNING userid, username, password_hash, email, avatarurl, role`,
                 [username, userid]
             );
 
@@ -136,7 +140,38 @@ class UserRepository {
             return new User(
                 row.userid, 
                 row.username, 
-                row.password,
+                row.password_hash,
+                row.email, 
+                row.avatarurl,
+                row.role
+            );
+        } catch(error) {
+            console.log(`SQL ERROR: ${error}`);
+            throw error;
+        }
+    }
+
+    async updatePassword(email, password) {
+        try {
+            const result = await pool.query(
+                `UPDATE users
+                SET password_hash = $1,
+                    updatedat = NOW()
+                WHERE email = $2
+                RETURNING *`,
+                [password, email]
+            );
+
+            const row = result.rows[0];
+
+            if (result.rows.length === 0) {
+                return null;
+            }
+
+            return new User(
+                row.userid, 
+                row.username, 
+                row.password_hash,
                 row.email, 
                 row.avatarurl,
                 row.role
