@@ -1,3 +1,4 @@
+require('dotenv').config();
 const AuthService = require('../services/AuthService');
 
 class AuthController {
@@ -8,7 +9,8 @@ class AuthController {
             res.json(result);
         } catch(error) {
             console.error(error);
-            res.status(400).json({ error: error.message });
+            const status = error.status || 400;
+            res.status(status).json({ message: error.message });
         }
     }
 
@@ -19,7 +21,8 @@ class AuthController {
             res.json(result);
         } catch(error) {
             console.error(error);
-            res.status(400).json({ error: error.message });
+            const status = error.status || 400;
+            res.status(status).json({ message: error.message });
         }
     }
 
@@ -31,7 +34,22 @@ class AuthController {
             res.json(result);
         } catch(error) {
             console.error(error);
-            res.status(400).json({ error: error.message });
+            const status = error.status || 400;
+            res.status(status).json({ message: error.message });
+        }
+    }
+
+    // [GET] /api/auth/verify-email?token=...
+    async verifyEmail(req, res) {
+        const { token } = req.query;
+        try {
+            await AuthService.verifyEmail(token);
+            return res.status(200).json({ message: 'Email verified successfully' });
+        } catch(error) {
+            console.error(error);
+            const status = error.status || 400;
+            const code = error.code || null;
+            res.status(status).json({ message: error.message, code });
         }
     }
 }
