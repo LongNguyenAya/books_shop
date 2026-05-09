@@ -8,11 +8,21 @@ function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    
+    if (!email || !password) {
+      setError('Please enter both email and password');
+      return;
+    }
+
+    setLoading(true);
     try {
       const result = await AuthService.login(email, password, remember);
       login(result.token);
@@ -22,7 +32,9 @@ function LoginPage() {
       }
       navigate('/');
     } catch (error) {
-      console.error(error);
+      setError(error.message || 'Login failed. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -55,6 +67,8 @@ function LoginPage() {
           <div className="login-form-inner">
             <h1 className="login-title">Welcome Back</h1>
             <p className="login-subtitle">Continue your journey through the collection.</p>
+
+            {error && <div className="error-message" style={{color: '#dc3545', marginBottom: '15px'}}>{error}</div>}
 
             <form onSubmit={handleSubmit}>
               <div className="field-group">
@@ -93,7 +107,9 @@ function LoginPage() {
                 </label>
               </div>
 
-              <button type="submit" className="signin-btn">SIGN IN</button>
+              <button type="submit" className="signin-btn" disabled={loading}>
+                {loading ? 'SIGNING IN...' : 'SIGN IN'}
+              </button>
             </form>
 
             <div className="register-section">

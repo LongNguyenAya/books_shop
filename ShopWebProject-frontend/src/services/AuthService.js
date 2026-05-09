@@ -91,6 +91,22 @@ class AuthService {
 
         return data;
     }
+
+    // Xử lý verify email    
+    async verifyEmail(token) {
+        const res = await fetch(`http://localhost:3000/api/auth/verify-email?token=${token}`, {
+            method:'GET',
+            redirect: 'follow'
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            throw new Error(data.message);
+        }
+
+        return { success: true };
+    }
 }
 
 export default new AuthService();

@@ -9,15 +9,40 @@ function RegisterPage() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [agreed, setAgreed] = useState(false);
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setMessage('');
+    
+    if (!username || !email || !password || !confirmPassword) {
+      setError('Please fill in all fields');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    if (!agreed) {
+      setError('Please agree to the terms and conditions');
+      return;
+    }
+
+    setLoading(true);
     try {
       await AuthService.register(username, email, password, confirmPassword);
-      navigate('/login');
+      setMessage('Registration successful! Please check your email to verify your account.');
+      setTimeout(() => navigate('/login'), 3000);
     } catch (error) {
-      console.error(error);
+      setError(error.message || 'Registration failed. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,6 +76,9 @@ function RegisterPage() {
             <p className="form-eyebrow">MEMBERSHIP REGISTRATION</p>
             <h1 className="register-title">Create Your Archive</h1>
             <p className="register-subtitle">Join our curated community of bibliophiles and scholars.</p>
+
+            {error && <div className="error-message" style={{color: '#dc3545', marginBottom: '15px'}}>{error}</div>}
+            {message && <div className="success-message" style={{color: '#28a745', marginBottom: '15px'}}>{message}</div>}
 
             <form onSubmit={handleSubmit}>
               <div className="field-group">
@@ -94,7 +122,20 @@ function RegisterPage() {
                 </div>
               </div>
 
-              <button type="submit" className="register-btn">REGISTER ACCOUNT</button>
+              <div className="terms-row" style={{marginBottom: '20px'}}>
+                <label style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+                  <input
+                    type="checkbox"
+                    checked={agreed}
+                    onChange={(e) => setAgreed(e.target.checked)}
+                  />
+                  <span>I agree to the Terms & Conditions</span>
+                </label>
+              </div>
+
+              <button type="submit" className="register-btn" disabled={loading}>
+                {loading ? 'REGISTERING...' : 'REGISTER ACCOUNT'}
+              </button>
             </form>
 
             <div className="login-section">

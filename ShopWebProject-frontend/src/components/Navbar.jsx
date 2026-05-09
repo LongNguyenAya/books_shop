@@ -30,7 +30,6 @@ function Navbar() {
           </NavLink>
           <NavLink to='/cart' className='navbar-link cart-link'>
             Cart
-            <span className='cart-icon'>🛒</span>
           </NavLink>
         </div>
 

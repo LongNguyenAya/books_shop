@@ -9,6 +9,8 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import CartPage from './pages/CartPage';
 import MarketplacePage from './pages/MarketplacePage';
 import ProfilePage from './pages/ProfilePage';
+import ContactPage from './pages/ContactPage';
+import VerifyEmailPage from './pages/VerifyEmailPage';
 import DashboardPage from './pages/admin/DashboardPage';
 
 import AdminRoute from './layouts/AdminRoute';
@@ -21,6 +23,7 @@ function App() {
         <Route path='/marketplace' element={<MarketplacePage />} />
         <Route path='/cart' element={<CartPage />} />
         <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/contact' element={<ContactPage />} />
       </Route>
 
       <Route path='/admin' element={<AdminRoute><AdminLayout /></AdminRoute>}>
@@ -31,6 +34,7 @@ function App() {
       <Route path='/login' element={<LoginPage />} />
       <Route path='/register' element={<RegisterPage />} />
       <Route path='/forgot-password' element={<ForgotPasswordPage />} />
+      <Route path='/verify-email' element={<VerifyEmailPage />} />
 
     </Routes>
   );

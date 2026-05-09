@@ -62,10 +62,6 @@
   gap: 4px;
 }
 
-.cart-icon {
-  font-size: 16px;
-}
-
 .navbar-auth {
   display: flex;
   align-items: center;
