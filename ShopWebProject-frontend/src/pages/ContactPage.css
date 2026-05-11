@@ -100,6 +100,63 @@
   transform: translateY(-1px);
 }
 
+.btn-submit:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.success-message {
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  animation: slideIn 0.3s ease-out;
+}
+
+.success-icon {
+  width: 40px;
+  height: 40px;
+  background: #28a745;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.success-message h3 {
+  margin: 0 0 4px 0;
+  color: #155724;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.success-message p {
+  margin: 0;
+  color: #155724;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 768px) {
   .contact-page {
     padding: 40px 16px;

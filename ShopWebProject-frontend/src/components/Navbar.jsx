@@ -11,25 +11,25 @@ function Navbar() {
       <div className='navbar-container'>
         {/* Brand Logo */}
         <NavLink to='/' className='navbar-brand'>
-          BookWorms
+          AnimeCulture
         </NavLink>
 
         {/* Navigation Links */}
         <div className='navbar-menu'>
           <NavLink to='/' className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>
-            Home
+            Trang chủ
           </NavLink>
           <NavLink to='/marketplace' className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>
-            Products
+            Sản phẩm
           </NavLink>
           <NavLink to='/about' className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>
-            About Us
+            Về chúng tôi
           </NavLink>
           <NavLink to='/contact' className={({ isActive }) => isActive ? 'navbar-link active' : 'navbar-link'}>
-            Contact Us
+            Liên hệ
           </NavLink>
           <NavLink to='/cart' className='navbar-link cart-link'>
-            Cart
+            Giỏ hàng
           </NavLink>
         </div>
 
@@ -37,13 +37,13 @@ function Navbar() {
         <div className='navbar-auth'>
           {isLogin ? (
             <div className='user-menu'>
-              <NavLink to='/profile' className='user-button'>Profile</NavLink>
-              <button onClick={logout} className='logout-button'>Logout</button>
+              <NavLink to='/profile' className='user-button'>Hồ sơ</NavLink>
+              <button onClick={logout} className='logout-button'>Đăng xuất</button>
             </div>
           ) : (
             <>
-              <NavLink to='/login' className='login-button'>Login</NavLink>
-              <NavLink to='/register' className='register-button'>Register</NavLink>
+              <NavLink to='/login' className='login-button'>Đăng nhập</NavLink>
+              <NavLink to='/register' className='register-button'>Đăng ký</NavLink>
             </>
           )}
         </div>

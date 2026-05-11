@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import AuthService from '../services/AuthService';
+import bgImage from '../assets/background-login-register.jpg';
 import './LoginPage.css';
 
 function LoginPage() {
@@ -39,10 +40,12 @@ function LoginPage() {
   };
 
   return (
-    <div className="login-page">
+    <div className="login-page" style={{
+      backgroundImage: `url(${bgImage})`
+    }}>
       <header className="login-header">
         <Link to="/" className="brand-name">
-          BookWorms
+          AnimeCulture
         </Link>
       </header>
 
@@ -54,12 +57,6 @@ function LoginPage() {
             alt="Library"
             className="library-image"
           />
-          <div className="quote-overlay">
-            <blockquote className="quote-text">
-              "A room without books is like a body without a soul."
-            </blockquote>
-            <cite className="quote-author">— MARCUS TULLIUS CICERO</cite>
-          </div>
         </div>
 
         {/* Right: Login Form */}

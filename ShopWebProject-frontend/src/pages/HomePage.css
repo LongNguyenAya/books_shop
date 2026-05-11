@@ -90,6 +90,7 @@ html {
   letter-spacing: 0.1em;
   cursor: pointer;
   transition: background 0.2s;
+  text-decoration: none;
 }
 
 .hero-button:hover {
@@ -378,75 +379,6 @@ html {
 
 .offer-button:hover {
   opacity: 0.9;
-}
-
-/* Newsletter Section */
-.newsletter-section {
-  max-width: 1024px;
-  margin: 0 auto;
-  padding: 0 32px 80px;
-}
-
-.newsletter-container {
-  border-top: 1px solid #e5e5e5;
-  border-bottom: 1px solid #e5e5e5;
-  padding: 64px 0;
-  text-align: center;
-}
-
-.newsletter-title {
-  font-family: 'Times New Roman', serif;
-  font-size: 36px;
-  font-style: italic;
-  margin: 0 0 16px;
-  color: #121F2C;
-}
-
-.newsletter-description {
-  font-family: 'Inter', sans-serif;
-  font-size: 18px;
-  color: #5f5e5b;
-  margin: 0 0 32px;
-}
-
-.newsletter-form {
-  display: flex;
-  max-width: 480px;
-  margin: 0 auto;
-}
-
-.newsletter-input {
-  flex-grow: 1;
-  border: none;
-  border-bottom: 2px solid #d4d4d4;
-  background: transparent;
-  padding: 8px;
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.newsletter-input:focus {
-  border-color: #121F2C;
-}
-
-.newsletter-button {
-  background: none;
-  border: none;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: #121F2C;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.2s;
-}
-
-.newsletter-button:hover {
-  opacity: 1;
 }
 
 /* Responsive */

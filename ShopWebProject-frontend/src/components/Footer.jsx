@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { NavHashLink } from 'react-router-hash-link';
 import './Footer.css';
 
 function Footer() {
@@ -9,10 +10,12 @@ function Footer() {
           {/* Brand Section */}
           <div className='footer-brand'>
             <NavLink to='/' className='footer-logo'>
-              Ink & Archive
+              AnimeCulture
             </NavLink>
             <p className='footer-description'>
-              A curated digital archive for readers who cherish the tactile weight of a well-bound book and the intellectual depth of a classic narrative.
+              Nơi hội tụ đam mê anime và manga, AnimeCulture mang đến cho bạn những sản phẩm độc đáo và chất lượng nhất. 
+              Khám phá bộ sưu tập đa dạng từ các thương hiệu nổi tiếng và những món đồ hiếm có chỉ có tại chúng tôi. 
+              Hãy để AnimeCulture trở thành điểm đến yêu thích của bạn trong thế giới anime!
             </p>
             <div className='footer-social'>
               <a className='social-link' href='#' aria-label='Books'>📚</a>
@@ -26,17 +29,16 @@ function Footer() {
             <div className='footer-column'>
               <h4 className='footer-heading'>Shop</h4>
               <ul className='footer-list'>
-                <li><NavLink to='/marketplace' className='footer-link'>New Arrivals</NavLink></li>
-                <li><NavLink to='/marketplace' className='footer-link'>Best Sellers</NavLink></li>
-                <li><NavLink to='/marketplace' className='footer-link'>Rare Editions</NavLink></li>
-                <li><NavLink to='/marketplace' className='footer-link'>Gift Cards</NavLink></li>
+                <li><NavHashLink to='/#hero-section' className='footer-link'>AnimeCulture</NavHashLink></li>
+                <li><NavHashLink to='/#featured-section' className='footer-link'>Bán chạy</NavHashLink></li>
+                <li><NavHashLink to='/#offers-section' className='footer-link'>Mã giảm giá</NavHashLink></li>
               </ul>
             </div>
 
             <div className='footer-column'>
               <h4 className='footer-heading'>Assistance</h4>
               <ul className='footer-list'>
-                <li><NavLink to='/contact' className='footer-link'>Contact Information</NavLink></li>
+                <li><NavHashLink to='/contact#contact-page' className='footer-link'>Liên hệ</NavHashLink></li>
                 <li><NavLink to='/contact' className='footer-link'>Privacy Policy</NavLink></li>
                 <li><NavLink to='/contact' className='footer-link'>Shipping & Returns</NavLink></li>
                 <li><NavLink to='/contact' className='footer-link'>Terms of Service</NavLink></li>
@@ -47,17 +49,13 @@ function Footer() {
           {/* Contact Section */}
           <div className='footer-contact'>
             <h4 className='footer-heading'>Visit Us</h4>
-            <p className='contact-address'>
-              1248 Library Way,<br/>
-              Historical District, Old Town
-            </p>
-            <p className='contact-email'>hello@inkandarchive.com</p>
+            <p className='contact-email'>longdang1106@gmail.com</p>
           </div>
         </div>
 
         {/* Copyright */}
         <div className='footer-copyright'>
-          <p>© 2024 Ink & Archive. Curated for the Discerning Reader.</p>
+          <p>© 2026 AnimeCulture. Curated for the Discerning Otaku.</p>
         </div>
       </div>
     </footer>

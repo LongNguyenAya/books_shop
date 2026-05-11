@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import Cropper from 'react-easy-crop';
 import './ProfilePage.css';
 import UserService from '../services/UserService';
 
@@ -9,7 +10,11 @@ function ProfilePage() {
   const [ isEditing, setIsEditing ] = useState(false);
   const [ editName, setEditName ] = useState('');
   const [ editAvatar, setEditAvatar ] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [ selectedImageUrl, setSelectedImageUrl ] = useState(null);
+  const [ crop, setCrop ] = useState({ x: 0, y: 0 });
+  const [ zoom, setZoom ] = useState(1);
+  const [ croppedAreaPixels, setCroppedAreaPixels ] = useState(null);
+  const [ isLoading, setIsLoading ] = useState(false);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -32,9 +37,72 @@ function ProfilePage() {
     fetchUserProfile(); 
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (selectedImageUrl) {
+        URL.revokeObjectURL(selectedImageUrl);
+      }
+    };
+  }, [selectedImageUrl]);
+
+  const onCropComplete = useCallback((_, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
+
   const handleEditClick = () => {
     setIsEditing(true);
     setEditName(name);
+  };
+
+  const createImage = (url) => {
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+      image.addEventListener('load', () => resolve(image));
+      image.addEventListener('error', (error) => reject(error));
+      image.setAttribute('crossOrigin', 'anonymous');
+      image.src = url;
+    });
+  };
+
+  const getCroppedImg = async (imageSrc, pixelCrop) => {
+    const image = await createImage(imageSrc);
+    const canvas = document.createElement('canvas');
+    canvas.width = pixelCrop.width;
+    canvas.height = pixelCrop.height;
+    const ctx = canvas.getContext('2d');
+
+    ctx.drawImage(
+      image,
+      pixelCrop.x,
+      pixelCrop.y,
+      pixelCrop.width,
+      pixelCrop.height,
+      0,
+      0,
+      pixelCrop.width,
+      pixelCrop.height
+    );
+
+    return new Promise((resolve, reject) => {
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          reject(new Error('Canvas is empty'));
+          return;
+        }
+        resolve(blob);
+      }, 'image/jpeg', 0.9);
+    });
+  };
+
+  const clearCropState = () => {
+    setEditAvatar(null);
+    if (selectedImageUrl) {
+      URL.revokeObjectURL(selectedImageUrl);
+    }
+    setSelectedImageUrl(null);
+    setCrop({ x: 0, y: 0 });
+    setZoom(1);
+    setCroppedAreaPixels(null);
   };
 
   const handleSaveClick = async () => {
@@ -44,13 +112,18 @@ function ProfilePage() {
       setName(updatedUser.username);
       setEditName(updatedUser.username);
 
-      if (editAvatar) {
+      if (editAvatar && selectedImageUrl && croppedAreaPixels) {
+        const croppedBlob = await getCroppedImg(selectedImageUrl, croppedAreaPixels);
+        const croppedFile = new File([croppedBlob], editAvatar.name, { type: editAvatar.type });
+        const res = await UserService.uploadAvatar(croppedFile);
+        setAvatar(res.avatarurl + '?t=' + Date.now());
+      } else if (editAvatar) {
         const res = await UserService.uploadAvatar(editAvatar);
         setAvatar(res.avatarurl + '?t=' + Date.now());
       }
 
       setIsEditing(false);
-      setEditAvatar(null);
+      clearCropState();
     } catch (error) {
       console.error('Failed to update profile:', error);
     } finally {
@@ -60,7 +133,7 @@ function ProfilePage() {
 
   const handleCancel = () => {
     setIsEditing(false);
-    setEditAvatar(null);
+    clearCropState();
     setEditName(name);
   };
 
@@ -95,10 +168,54 @@ function ProfilePage() {
                 <input 
                   type='file' 
                   accept='image/*'
-                  onChange={(e) => setEditAvatar(e.target.files?.[0])}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) {
+                      return;
+                    }
+                    setEditAvatar(file);
+                    const previewUrl = URL.createObjectURL(file);
+                    setSelectedImageUrl(previewUrl);
+                    setCrop({ x: 0, y: 0 });
+                    setZoom(1);
+                    setCroppedAreaPixels(null);
+                  }}
                 />
                 {editAvatar && <p className='file-selected'>{editAvatar.name}</p>}
               </div>
+
+              {selectedImageUrl && (
+                <div className='cropper-panel'>
+                  <div className='cropper-container'>
+                    <Cropper
+                      image={selectedImageUrl}
+                      crop={crop}
+                      zoom={zoom}
+                      aspect={1}
+                      cropShape='round'
+                      showGrid={false}
+                      onCropChange={setCrop}
+                      onZoomChange={setZoom}
+                      onCropComplete={onCropComplete}
+                    />
+                  </div>
+
+                  <div className='cropper-slider'>
+                    <label htmlFor='zoom-range'>Zoom</label>
+                    <input
+                      id='zoom-range'
+                      type='range'
+                      min={1}
+                      max={3}
+                      step={0.01}
+                      value={zoom}
+                      onChange={(e) => setZoom(Number(e.target.value))}
+                    />
+                  </div>
+
+                  <p className='cropper-note'>Drag the image to adjust the crop area. The final avatar will be cut as a square.</p>
+                </div>
+              )}
             </div>
 
             <div className='modal-footer'>

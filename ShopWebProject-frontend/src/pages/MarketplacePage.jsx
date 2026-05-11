@@ -25,8 +25,7 @@ function MarketplacePage() {
     const query = searchTerm.trim().toLowerCase();
     if (query) {
       result = result.filter((product) =>
-        product.productname.toLowerCase().includes(query) ||
-        product.description.toLowerCase().includes(query)
+        product.productname.toLowerCase().includes(query) 
       );
     }
     if (sortOrder === 'price-asc') {

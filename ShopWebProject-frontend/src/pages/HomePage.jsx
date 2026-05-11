@@ -35,22 +35,26 @@ function HomePage() {
   return (
     <div className='home-page'>
       {/* Hero Section */}
-      <section className='hero-section'>
+      <section id='hero-section' className='hero-section'>
         <div className='hero-container'>
           <div className='hero-image-wrapper'>
             <img 
               alt='Library Interior' 
               className='hero-image'
-              src='https://lh3.googleusercontent.com/aida-public/AB6AXuAP-ewDAlsPlHRzqv5wt1zOkSSghcHD1z5Fnq_t0Af_oie5foHSoyPBN_MCQKP4wesZV5UzXo-ubI7hVfhuExMwkMcBbm9t54I64O7nB5XOCJQj5Uc3S0X3QgwDlivMCQiG7vf5UNy7olwaZmArO8IZfEduuMKve8l83Z6BdO8irUi0if40LHDwiaUSrx0bmLrTB0sfwiOYB2TG5M7UoZ2WdBpf4ptNvATylpit0FQbGRP-NJvIt1FJJHlgWNEs7lrZ-UsNHWtVTvxN'
+              src='https://img.freepik.com/premium-photo/anime-scene-background-with-books-desk-envelopes-digital-illustration_1001131-171.jpg?w=2000'
             />
             <div className='hero-overlay'>
               <div className='hero-content'>
-                <span className='hero-label'>Spring Collection 2024</span>
-                <h1 className='hero-title'>The Art of the Printed Word</h1>
+                <span className='hero-label'>Đây là nơi dành cho các tín đồ đam mê anime</span>
+                <h1 className='hero-title'>AnimeCulture</h1>
                 <p className='hero-description'>
-                  Discover a curated selection of rare editions and modern masterpieces designed for the discerning bibliophile.
+                  Nơi hội tụ đam mê anime và manga, AnimeCulture mang đến cho bạn những sản phẩm độc đáo và chất lượng nhất. 
+                  Khám phá bộ sưu tập đa dạng từ các thương hiệu nổi tiếng và những món đồ hiếm có chỉ có tại chúng tôi. 
+                  Hãy để AnimeCulture trở thành điểm đến yêu thích của bạn trong thế giới anime!
                 </p>
-                <button className='hero-button'>Explore the Archive</button>
+                <NavLink to='/marketplace' className='hero-button'>
+                  Khám phá kho sách
+                </NavLink>
               </div>
             </div>
             <div className='hero-nav-buttons'>
@@ -62,7 +66,7 @@ function HomePage() {
       </section>
 
       {/* Featured Collection */}
-      <section className='featured-section'>
+      <section id='featured-section' className='featured-section'>
         <div className='featured-container'>
           <div className='featured-header'>
             <div>
@@ -137,7 +141,7 @@ function HomePage() {
       </section>
 
       {/* Special Offers */}
-      <section className='offers-section'>
+      <section id='offers-section' className='offers-section'>
         <div className='offers-container'>
           <div className='offers-header'>
             <h2 className='offers-title'>On Sale</h2>
@@ -180,26 +184,6 @@ function HomePage() {
                 <button className='offer-button'>Add to Cart</button>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Newsletter */}
-      <section className='newsletter-section'>
-        <div className='newsletter-container'>
-          <div className='newsletter-content'>
-            <h2 className='newsletter-title'>Join the Literary Circle</h2>
-            <p className='newsletter-description'>
-              Receive monthly dispatches on new arrivals, author interviews, and exclusive archival releases.
-            </p>
-            <form className='newsletter-form' onSubmit={(e) => e.preventDefault()}>
-              <input 
-                className='newsletter-input'
-                placeholder='Your email address'
-                type='email'
-              />
-              <button type='submit' className='newsletter-button'>Subscribe</button>
-            </form>
           </div>
         </div>
       </section>

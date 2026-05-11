@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthService from '../services/AuthService';
+import bgImage from '../assets/background-login-register.jpg';
 import './RegisterPage.css';
 
 function RegisterPage() {
@@ -47,10 +48,12 @@ function RegisterPage() {
   };
 
   return (
-    <div className="register-page">
+    <div className="register-page" style={{
+      backgroundImage: `url(${bgImage})`
+    }}>
       <header className="register-header">
         <Link to="/" className="brand-name">
-          BookWorms
+          AnimeCulture
         </Link>
       </header>
 
@@ -62,12 +65,6 @@ function RegisterPage() {
             alt="Library corridor"
             className="library-image"
           />
-          <div className="quote-overlay">
-            <blockquote className="quote-text">
-              "A room without books is like a body without a soul."
-            </blockquote>
-            <cite className="quote-author">— Cicero</cite>
-          </div>
         </div>
 
         {/* Right: Register Form */}
