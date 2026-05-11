@@ -1,7 +1,7 @@
 // models/user.model.js
 
 class User {
-  constructor({ userid, username, password_hash, email, email_verified, verify_token, verify_token_expired, avatarurl, role, is_active, createdat, updatedat }) {
+  constructor({ userid, username, password_hash, email, email_verified, verify_token, verify_token_expired, avatarurl, role, is_active, createdat, updatedat, avatar_public_id }) {
     this.userid = userid
     this.username = username
     this.password_hash = password_hash
@@ -14,6 +14,7 @@ class User {
     this.is_active = is_active
     this.createdat = createdat
     this.updatedat = updatedat
+    this.avatar_public_id = avatar_public_id
   }
 }
 

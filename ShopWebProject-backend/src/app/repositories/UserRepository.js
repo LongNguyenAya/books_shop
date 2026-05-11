@@ -73,15 +73,16 @@ class UserRepository {
         }
     }
 
-    async updateAvatarImage(userid, avatarurl) {
+    async updateAvatarImage(userid, avatarurl, avatar_public_id) {
         try {
             const result = await pool.query(
                 `UPDATE users
                 SET avatarurl = $1,
+                avatar_public_id = $2,
                 updatedat = NOW()
-                WHERE userid = $2
+                WHERE userid = $3
                 RETURNING *`,
-                [avatarurl, userid]
+                [avatarurl, avatar_public_id, userid]
             );
 
             if (result.rows.length === 0) {
@@ -93,16 +94,10 @@ class UserRepository {
             return new User({
                 userid: row.userid,
                 username: row.username,
-                password_hash: row.password_hash,
-                email: row.email,
-                email_verified: row.email_verified,
-                verify_token: row.verify_token,
-                verify_token_expired: row.verify_token_expired,
                 avatarurl: row.avatarurl,
-                role: row.role,
-                is_active: row.is_active,
                 createdat: row.createdat,
-                updatedat: row.updatedat
+                updatedat: row.updatedat,
+                avatar_public_id: row.avatar_public_id
             });
         } catch(error) {
             console.log(`SQL ERROR: ${error}`);

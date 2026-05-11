@@ -13,21 +13,27 @@ class UserService {
     }
 
     async uploadAvatar(userid, file) {
+        const user = await UserRepository.getUserById(userid);
+
+        // Nếu có public_id cũ, hãy xóa nó trên Cloudinary trước
+        if (user && user.avatar_public_id) {
+            await cloudinary.uploader.destroy(user.avatar_public_id);
+        }
+
+        // Upload ảnh lên Cloudinary
         const result = await new Promise((resolve, reject) => {
             const stream = cloudinary.uploader.upload_stream(
-                { folder: 'avatars' },
+                { folder: 'anime_culture_website/avatars' },
                 (error, result) => {
                     if (error) reject(error);
                     else resolve(result);
                 }
             );
-
             stream.end(file.buffer);
         });
 
-        const avatarUrl = result.secure_url;
-
-        return await UserRepository.updateAvatarImage(userid, avatarUrl);
+        // Lưu cả URL và Public ID vào DB
+        return await UserRepository.updateAvatarImage(userid, result.secure_url, result.public_id);
     }
 
     async updateProfile(userid, username) {

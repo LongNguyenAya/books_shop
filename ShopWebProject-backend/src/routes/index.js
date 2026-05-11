@@ -4,9 +4,10 @@ const productsRouter = require('./products');
 const cartsRouter = require('./carts');
 const ordersRouter = require('./orders');
 const usersRouter = require('./users');
+const contactRequestsRouter = require('./contact-requests');
 
 const authRouter = require('./auth');
-const { authenticate, authorize } = require('../app/middlewares/AuthMiddleware');
+const { authenticate, authorize, optionalAuthenticate } = require('../app/middlewares/AuthMiddleware');
 
 function route(app) {
     app.use('/', homeRouter);
@@ -18,6 +19,7 @@ function route(app) {
     app.use('/api/cart', cartsRouter);
     app.use('/api/orders', ordersRouter);
     app.use('/api/users', usersRouter);
+    app.use('/api/contact-requests', optionalAuthenticate, contactRequestsRouter);
 }
 
 module.exports = route;
