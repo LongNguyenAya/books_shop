@@ -8,6 +8,11 @@ class ProductService {
         return products;
     }
 
+    async searchProducts(searchTerm, page, limit) {
+        const products = await ProductRepository.searchRepo(searchTerm, page, limit);
+        return products;
+    }
+
     async getProductById(id) {
         const product = await ProductRepository.getIdRepo(id);
         return product;
@@ -57,6 +62,11 @@ class ProductService {
     async caculateTotalProducts() {
         const total = await ProductRepository.caculateTotalProductsRepo();
         return total;
+    }
+
+    async getProductBySlug(slug) {
+        const product = await ProductRepository.getProductBySlug(slug);
+        return product;
     }
 }
 

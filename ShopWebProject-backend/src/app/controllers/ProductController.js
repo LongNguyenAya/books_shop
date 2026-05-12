@@ -1,16 +1,35 @@
 const ProductService = require('../services/ProductService');
 
 class ProductController {
-    // [GET] /api/products?page=1&limit=15
+    // [GET] /api/products?page=1&limit=16
     async getAll(req, res) {
         try {
             const page = parseInt(req.query.page) || 1;
-            const limit = parseInt(req.query.limit) || 15;
+            const limit = parseInt(req.query.limit) || 16;
 
             const products = await ProductService.getAllProducts(page, limit);
             res.json(products);
         } catch(error) {
             res.status(400).json({ error: 'Cant find products' });
+        }
+    }
+
+    // [GET] /api/products/search?q=searchTerm&page=1&limit=16
+    async search(req, res) {
+        try {
+            const searchTerm = req.query.q;
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 16;
+
+            if (!searchTerm || searchTerm.trim() === '') {
+                return res.status(400).json({ error: 'Search term is required' });
+            }
+
+            const products = await ProductService.searchProducts(searchTerm.trim(), page, limit);
+            res.json(products);
+        } catch(error) {
+            console.error('Search error:', error);
+            res.status(400).json({ error: 'Cant search products' });
         }
     }
 
@@ -22,6 +41,17 @@ class ProductController {
             res.json(product);
         } catch(error) {
             res.status(400).json({ error: `Cant find product with id=${id}` });
+        }
+    }
+
+    // [GET] /api/products/slug/:slug
+    async getBySlug(req, res) {
+        const slug = req.params.slug;
+        try {
+            const product = await ProductService.getProductBySlug(slug);
+            res.json(product);
+        } catch(error) {
+            res.status(400).json({ error: `Cant find product with slug=${slug}` });
         }
     }
 
