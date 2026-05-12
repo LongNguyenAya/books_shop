@@ -1,6 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import { NavHashLink } from 'react-router-hash-link';
 import './Footer.css';
+import facebookIcon from '../assets/logo/facebook.png';
+import emailIcon from '../assets/logo/email.png';
 
 function Footer() {
   return (
@@ -18,9 +20,12 @@ function Footer() {
               Hãy để AnimeCulture trở thành điểm đến yêu thích của bạn trong thế giới anime!
             </p>
             <div className='footer-social'>
-              <a className='social-link' href='#' aria-label='Books'>📚</a>
-              <a className='social-link' href='#' aria-label='Share'>📤</a>
-              <a className='social-link' href='#' aria-label='Email'>✉️</a>
+              <a className='social-link' href='https://www.facebook.com/LongHeHe2108/' aria-label='Facebook'>
+                <img src={facebookIcon} alt='Facebook' className='social-icon' />
+              </a>
+              <a className='social-link' href='mailto:longdang1106@gmail.com' aria-label='Email'>
+                <img src={emailIcon} alt='Email' className='social-icon' />
+              </a>
             </div>
           </div>
 
@@ -39,9 +44,7 @@ function Footer() {
               <h4 className='footer-heading'>Assistance</h4>
               <ul className='footer-list'>
                 <li><NavHashLink to='/contact#contact-page' className='footer-link'>Liên hệ</NavHashLink></li>
-                <li><NavLink to='/contact' className='footer-link'>Privacy Policy</NavLink></li>
-                <li><NavLink to='/contact' className='footer-link'>Shipping & Returns</NavLink></li>
-                <li><NavLink to='/contact' className='footer-link'>Terms of Service</NavLink></li>
+                <li><NavLink to='/about-us' className='footer-link'>Về chúng tôi</NavLink></li>
               </ul>
             </div>
           </div>

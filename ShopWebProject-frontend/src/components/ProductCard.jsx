@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import './ProductCard.css';
 
 function ProductCard({ product }) {
@@ -5,7 +6,7 @@ function ProductCard({ product }) {
   const stockLabel = stockCount > 0 ? `${stockCount} in stock` : 'Out of stock';
 
   return (
-    <div className='product-card'>
+    <NavLink to={`/product/${product.slug}`} className='product-card'>
       <div className='product-image'>
         <img src={product.imageurl} alt={product.productname} />
       </div>
@@ -15,16 +16,16 @@ function ProductCard({ product }) {
         <p className='product-description'>{product.description}</p>
 
         <div className='product-meta'>
-          <p className='product-price'>${product.price}</p>
+          <p className='product-price'>{product.price}đ</p>
           <span className={`product-stock ${stockCount > 0 ? 'available' : 'sold-out'}`}>
             {stockLabel}
           </span>
         </div>
 
-        <button className='add-btn'>Add to cart</button>
+        <button className='add-btn'>Thêm vào giỏ hàng</button>
       </div>
 
-    </div>
+    </NavLink>
   );
 }
 

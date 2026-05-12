@@ -3,14 +3,15 @@ import MainLayout from './layouts/MainLayout';
 import AdminLayout from './layouts/AdminLayout';
 
 import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import LoginPage from './pages/auth/LoginPage';
+import RegisterPage from './pages/auth/RegisterPage';
+import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
 import CartPage from './pages/CartPage';
-import MarketplacePage from './pages/MarketplacePage';
+import MarketplacePage from './pages/product/MarketplacePage';
+import ProductDetailPage from './pages/product/ProductDetailPage';
 import ProfilePage from './pages/ProfilePage';
 import ContactPage from './pages/ContactPage';
-import VerifyEmailPage from './pages/VerifyEmailPage';
+import VerifyEmailPage from './pages/auth/VerifyEmailPage';
 import DashboardPage from './pages/admin/DashboardPage';
 
 import AdminRoute from './layouts/AdminRoute';
@@ -24,6 +25,7 @@ function App() {
         <Route path='/cart' element={<CartPage />} />
         <Route path='/profile' element={<ProfilePage />} />
         <Route path='/contact' element={<ContactPage />} />
+        <Route path='/product/:slug' element={<ProductDetailPage />} />
       </Route>
 
       <Route path='/admin' element={<AdminRoute><AdminLayout /></AdminRoute>}>

@@ -4,13 +4,15 @@
   padding: 0;
 }
 
+/* ── Page ── */
 .register-page {
-  min-height: 100vh;
-  background-color: #f0f4f8;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  font-family: 'Georgia', serif;
+  font-family: 'sans-serif', serif;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -19,28 +21,15 @@
 .register-page::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(10, 15, 40, 0.65) 50%,
+    rgba(0, 0, 0, 0.78) 100%
+  );
   pointer-events: none;
-}
-
-/* ── Header ── */
-.register-header {
-  padding: 20px 32px;
-  position: relative;
-  z-index: 10;
-}
-
-.brand-name {
-  font-family: 'Times New Roman', serif;
-  font-size: 24px;
-  font-style: italic;
-  font-weight: bold;
-  color: #121F2C;
-  text-decoration: none;
+  z-index: 1;
 }
 
 /* ── Main layout ── */
@@ -49,9 +38,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 48px 48px;
+  padding: 24px;
   position: relative;
   z-index: 10;
+  min-height: 0;
 }
 
 /* ── Left visual panel ── */
@@ -63,15 +53,17 @@
   display: none;
 }
 
-/* ── Right form panel ── */
+/* ── Form panel ── */
 .register-form-panel {
   flex: 0 0 auto;
   width: 480px;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 12px;
-  padding: 48px 52px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 4px;
+  padding: 36px 44px;
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.45),
+    0 2px 8px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
 }
 
 .register-form-inner {
@@ -81,37 +73,61 @@
 
 .form-eyebrow {
   font-family: sans-serif;
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   color: #888888;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .register-title {
-  font-family: 'Georgia', serif;
-  font-size: 2.6rem;
+  font-family: 'sans-serif', serif;
+  font-size: 2rem;
   font-weight: 700;
   color: #111111;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   line-height: 1.15;
+  text-decoration: none;
 }
 
 .register-subtitle {
-  font-family: 'Georgia', serif;
-  font-size: 0.95rem;
+  font-family: 'sans-serif', serif;
+  font-size: 0.9rem;
   color: #666666;
-  margin-bottom: 36px;
+  margin-bottom: 24px;
+}
+
+/* ── Error / Success ── */
+.error-message {
+  font-family: sans-serif;
+  font-size: 0.78rem;
+  color: #c0392b !important;
+  background: #fdf0ef;
+  border-left: 3px solid #c0392b;
+  padding: 8px 12px;
+  margin-bottom: 16px !important;
+  border-radius: 2px;
+}
+
+.success-message {
+  font-family: sans-serif;
+  font-size: 0.78rem;
+  color: #1e7e34 !important;
+  background: #eaf6ec;
+  border-left: 3px solid #28a745;
+  padding: 8px 12px;
+  margin-bottom: 16px !important;
+  border-radius: 2px;
 }
 
 /* ── Form fields ── */
 .field-group {
-  margin-bottom: 28px;
+  margin-bottom: 18px;
 }
 
 .field-row {
   display: flex;
-  gap: 24px;
+  gap: 20px;
 }
 
 .field-group.half {
@@ -121,9 +137,9 @@
 .field-input {
   width: 100%;
   border: none;
-  border-bottom: 1.5px solid #bbbbbb;
-  padding: 10px 0;
-  font-family: 'Georgia', serif;
+  border-bottom: 1.5px solid #cccccc;
+  padding: 7px 0;
+  font-family: 'sans-serif', serif;
   font-size: 0.95rem;
   color: #333333;
   background: transparent;
@@ -132,7 +148,7 @@
 }
 
 .field-input::placeholder {
-  color: #999999;
+  color: #bbbbbb;
 }
 
 .field-input:focus {
@@ -145,81 +161,82 @@
   background: #111111;
   color: #ffffff;
   border: none;
-  padding: 18px;
+  padding: 15px;
   font-family: sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.15em;
   cursor: pointer;
   border-radius: 2px;
-  transition: background 0.2s;
-  margin-bottom: 28px;
+  transition: background 0.2s, transform 0.1s;
+  margin-bottom: 20px;
+  text-transform: uppercase;
 }
 
-.register-btn:hover {
+.register-btn:hover:not(:disabled) {
   background: #333333;
+}
+
+.register-btn:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.register-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* ── Login section ── */
 .login-section {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .login-text {
   font-family: sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: #777777;
 }
 
 .login-here-link {
   font-family: sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   color: #111111;
   text-decoration: underline;
   text-underline-offset: 3px;
+  transition: color 0.2s;
 }
 
 .login-here-link:hover {
   color: #444444;
 }
 
-/* ── Trust badges ── */
-.trust-badges {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 20px;
-  border-top: 1px solid #e0e0e0;
-}
-
-.badge {
-  font-family: 'Georgia', serif;
-  font-style: italic;
-  font-size: 0.85rem;
-  color: #999999;
-}
-
 /* ── Responsive ── */
-@media (max-width: 1024px) {
+@media (max-width: 540px) {
   .register-main {
-    flex-direction: column;
-    padding: 24px;
-    gap: 32px;
-  }
-
-  .register-visual {
-    width: 100%;
-    height: 280px;
+    padding: 16px;
+    align-items: center;
   }
 
   .register-form-panel {
     width: 100%;
+    padding: 28px 24px;
+  }
+
+  .register-title {
+    font-size: 1.6rem;
   }
 
   .field-row {
     flex-direction: column;
     gap: 0;
+  }
+
+  .trust-badges {
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
   }
 }

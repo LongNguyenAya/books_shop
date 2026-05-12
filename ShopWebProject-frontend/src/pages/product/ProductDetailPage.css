@@ -1,0 +1,403 @@
+/* ── Page ── */
+.pd-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+  font-family: 'Georgia', serif;
+}
+
+/* ── Breadcrumb ── */
+.pd-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: sans-serif;
+  font-size: 13px;
+  color: #888888;
+  margin-bottom: 28px;
+}
+
+.pd-breadcrumb a {
+  color: #888888;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.pd-breadcrumb a:hover {
+  color: #111111;
+}
+
+.pd-breadcrumb span:last-child {
+  color: #111111;
+}
+
+.pd-breadcrumb-sep {
+  color: #cccccc;
+}
+
+/* ── Grid ── */
+.pd-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+/* ── Image column ── */
+.pd-img-col {
+  position: relative;
+}
+
+.pd-img-frame {
+  background: #f5f5f3;
+  border-radius: 8px;
+  border: 0.5px solid #e0e0e0;
+  aspect-ratio: 3 / 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.pd-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pd-img-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #aaaaaa;
+  font-family: sans-serif;
+  font-size: 13px;
+}
+
+.pd-badge-cat {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 0.5px solid #dddddd;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-family: sans-serif;
+  font-size: 11px;
+  color: #666666;
+  letter-spacing: 0.04em;
+}
+
+/* ── Thumbnails ── */
+.pd-thumbnails {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.pd-thumb {
+  width: 60px;
+  height: 76px;
+  background: #f5f5f3;
+  border-radius: 6px;
+  border: 0.5px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.pd-thumb:hover {
+  border-color: #aaaaaa;
+}
+
+/* ── Info column ── */
+.pd-info-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.pd-eyebrow {
+  font-family: sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #888888;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.pd-title {
+  font-family: 'Georgia', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111111;
+  line-height: 1.25;
+  margin-bottom: 16px;
+}
+
+/* ── Author ── */
+.pd-author-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.pd-author-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #e6f1fb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #185fa5;
+  flex-shrink: 0;
+}
+
+.pd-author-name {
+  font-family: sans-serif;
+  font-size: 14px;
+  color: #444444;
+}
+
+.pd-author-role {
+  font-family: sans-serif;
+  font-size: 12px;
+  color: #aaaaaa;
+}
+
+/* ── Divider ── */
+.pd-divider {
+  border: none;
+  border-top: 0.5px solid #e8e8e8;
+  margin: 0 0 20px;
+}
+
+/* ── Price ── */
+.pd-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.pd-price {
+  font-family: 'Georgia', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #111111;
+}
+
+.pd-stock-badge {
+  font-family: sans-serif;
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
+.pd-stock-badge.ok {
+  background: #eaf6ec;
+  color: #1e7e34;
+  border: 0.5px solid #b8dfc0;
+}
+
+.pd-stock-badge.low {
+  background: #faeeda;
+  color: #854f0b;
+  border: 0.5px solid #f5d08a;
+}
+
+/* ── Tabs ── */
+.pd-tabs {
+  display: flex;
+  border-bottom: 0.5px solid #e8e8e8;
+  margin-bottom: 16px;
+  gap: 0;
+}
+
+.pd-tab {
+  padding: 8px 16px;
+  font-family: sans-serif;
+  font-size: 13px;
+  color: #888888;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -0.5px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.pd-tab:hover {
+  color: #444444;
+}
+
+.pd-tab.active {
+  color: #111111;
+  border-bottom-color: #111111;
+  font-weight: 600;
+}
+
+/* ── Description ── */
+.pd-desc {
+  font-family: 'Georgia', serif;
+  font-size: 15px;
+  color: #555555;
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+/* ── Meta grid ── */
+.pd-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.pd-meta-item {
+  background: #f8f8f7;
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.pd-meta-label {
+  font-family: sans-serif;
+  font-size: 11px;
+  color: #aaaaaa;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+
+.pd-meta-val {
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #222222;
+}
+
+/* ── Quantity ── */
+.pd-qty-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.pd-qty-label {
+  font-family: sans-serif;
+  font-size: 13px;
+  color: #666666;
+}
+
+.pd-qty-ctrl {
+  display: flex;
+  align-items: center;
+  border: 0.5px solid #dddddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.pd-qty-btn {
+  background: none;
+  border: none;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #333333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.pd-qty-btn:hover:not(:disabled) {
+  background: #f0f0f0;
+}
+
+.pd-qty-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.pd-qty-num {
+  width: 44px;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #111111;
+  border-left: 0.5px solid #e8e8e8;
+  border-right: 0.5px solid #e8e8e8;
+  height: 38px;
+  line-height: 38px;
+}
+
+/* ── Buttons ── */
+.pd-btn-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.pd-btn-primary {
+  flex: 1;
+  padding: 14px;
+  background: #111111;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  letter-spacing: 0.02em;
+}
+
+.pd-btn-primary:hover {
+  background: #333333;
+}
+
+.pd-btn-primary:active {
+  transform: scale(0.99);
+}
+
+/* ── Trust ── */
+.pd-trust {
+  font-family: sans-serif;
+  font-size: 12px;
+  color: #aaaaaa;
+  padding-top: 16px;
+  border-top: 0.5px solid #eeeeee;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .pd-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .pd-img-frame {
+    aspect-ratio: 4 / 3;
+  }
+
+  .pd-title {
+    font-size: 1.6rem;
+  }
+
+  .pd-price {
+    font-size: 22px;
+  }
+}

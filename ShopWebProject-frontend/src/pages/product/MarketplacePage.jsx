@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
-import ProductCard from '../components/ProductCard';
-import ProductService from '../services/ProductService';
+import ProductCard from '../../components/ProductCard';
+import ProductService from '../../services/ProductService';
 import './MarketplacePage.css';
 
 function MarketplacePage() {
@@ -12,52 +12,61 @@ function MarketplacePage() {
   const [sortOrder, setSortOrder] = useState('default');
 
   useEffect(() => {
+    setPage(1); // Reset to first page when search term changes
+  }, [searchTerm]);
+
+  useEffect(() => {
     const fetchProducts = async () => {
-      const data = await ProductService.showProducts(page);
-      setProducts(data.data);
-      setTotalPages(data.totalPages);
+      try {
+        let data;
+        if (searchTerm.trim()) {
+          data = await ProductService.searchProducts(searchTerm.trim(), page);
+        } else {
+          data = await ProductService.showProducts(page);
+        }
+        setProducts(data.data);
+        setTotalPages(data.totalPages);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        setProducts([]);
+        setTotalPages(1);
+      }
     };
     fetchProducts();
-  }, [page]);
+  }, [page, searchTerm]);
 
   const filteredProducts = useMemo(() => {
     let result = products;
-    const query = searchTerm.trim().toLowerCase();
-    if (query) {
-      result = result.filter((product) =>
-        product.productname.toLowerCase().includes(query) 
-      );
-    }
     if (sortOrder === 'price-asc') {
-      result = [...result].sort((a, b) => a.price - b.price);
+      result = [...result].sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
     } else if (sortOrder === 'price-desc') {
-      result = [...result].sort((a, b) => b.price - a.price);
+      result = [...result].sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
     }
     return result;
-  }, [products, searchTerm, sortOrder]);
+  }, [products, sortOrder]);
 
   return (
     <div className='marketplace-root'>
       {/* Hero Section */}
       <section className='marketplace-hero'>
-        <h1 className='marketplace-title'>The Archive Catalog</h1>
-        <p className='marketplace-subtitle'>Curated volumes for the discerning reader and collector.</p>
+        <h1 className='marketplace-title'>Kho Sách</h1>
+        <p className='marketplace-subtitle'>Hãy chọn lựa những cuốn sách yêu thích của bạn.</p>
         <div className='marketplace-searchbar'>
           <input
             type='text'
-            placeholder='Search the collection...'
+            placeholder='Tìm kiếm trong bộ sưu tập...'
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <span className='material-symbols-outlined'>search</span>
+          <span className='material-symbols-outlined'>Tìm kiếm</span>
         </div>
         <div className='marketplace-controls'>
           <div className='sort-group'>
-            <label htmlFor='sort'>Sort by</label>
+            <label htmlFor='sort'>Phân loại</label>
             <select id='sort' value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
-              <option value='default'>Default</option>
-              <option value='price-asc'>Price: Low to High</option>
-              <option value='price-desc'>Price: High to Low</option>
+              <option value='default'>Mặc định</option>
+              <option value='price-asc'>Giá: Thấp đến Cao</option>
+              <option value='price-desc'>Giá: Cao đến Thấp</option>
             </select>
           </div>
         </div>
@@ -66,7 +75,7 @@ function MarketplacePage() {
       {/* Product Grid */}
       <div className='marketplace-product-list'>
         {filteredProducts.length === 0 ? (
-          <div className='empty-state'>No products found.</div>
+          <div className='empty-state'>Không tìm thấy sản phẩm nào.</div>
         ) : (
           filteredProducts.map((p) => (
             <ProductCard key={p.productid} product={p} />
@@ -81,7 +90,7 @@ function MarketplacePage() {
           onClick={() => setPage((prev) => Math.max(1, prev - 1))}
           disabled={page === 1}
         >
-          <span className='material-symbols-outlined'>chevron_left</span>
+          <span className='material-symbols-outlined'>&larr;</span>
         </button>
         {[...Array(totalPages)].map((_, i) => {
           const pageNumber = i + 1;
@@ -123,7 +132,7 @@ function MarketplacePage() {
           onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
           disabled={page === totalPages}
         >
-          <span className='material-symbols-outlined'>chevron_right</span>
+          <span className='material-symbols-outlined'>&rarr;</span>
         </button>
       </div>
     </div>

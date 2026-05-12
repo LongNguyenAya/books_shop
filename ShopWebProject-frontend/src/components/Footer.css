@@ -49,6 +49,12 @@
   gap: 16px;
 }
 
+.footer-social .social-icon {
+  width: 24px;
+  height: 24px;
+  transition: filter 0.2s;
+}
+
 .social-link {
   color: #64748b;
   text-decoration: none;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import './VerifyEmailPage.css';
-import AuthService from '../services/AuthService';
+import AuthService from '../../services/AuthService';
 
 function VerifyEmailPage() {
   const [isLoading, setIsLoading] = useState(true);

@@ -1,9 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useContext } from 'react';
-import { AuthContext } from '../contexts/AuthContext';
-import AuthService from '../services/AuthService';
-import bgImage from '../assets/background-login-register.jpg';
+import { AuthContext } from '../../contexts/AuthContext';
+import AuthService from '../../services/AuthService';
+import bgImage from '../../assets/background-login-register.jpg';
 import './LoginPage.css';
+import { NavLink } from 'react-router-dom';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -41,14 +42,8 @@ function LoginPage() {
 
   return (
     <div className="login-page" style={{
-      backgroundImage: `url(${bgImage})`
+      backgroundImage: `url(${bgImage})`,
     }}>
-      <header className="login-header">
-        <Link to="/" className="brand-name">
-          AnimeCulture
-        </Link>
-      </header>
-
       <main className="login-main">
         {/* Left: Library Image + Quote */}
         <div className="login-visual">
@@ -62,18 +57,20 @@ function LoginPage() {
         {/* Right: Login Form */}
         <div className="login-form-panel">
           <div className="login-form-inner">
-            <h1 className="login-title">Welcome Back</h1>
-            <p className="login-subtitle">Continue your journey through the collection.</p>
+            <NavLink to="/" className="login-title">
+              AnimeCulture
+            </NavLink>
+            <p className="login-subtitle">Chào mừng bạn đã quay trở lại.</p>
 
             {error && <div className="error-message" style={{color: '#dc3545', marginBottom: '15px'}}>{error}</div>}
 
             <form onSubmit={handleSubmit}>
               <div className="field-group">
-                <label className="field-label">EMAIL ADDRESS</label>
+                <label className="field-label">EMAIL</label>
                 <input
                   type="email"
                   className="field-input"
-                  placeholder="reader@bookworms.com"
+                  placeholder="reader@animeculture.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -81,8 +78,8 @@ function LoginPage() {
 
               <div className="field-group">
                 <div className="field-label-row">
-                  <label className="field-label">PASSWORD</label>
-                  <Link to="/forgot-password" className="forgot-link">FORGOT?</Link>
+                  <label className="field-label">MẬT KHẨU</label>
+                  <Link to="/forgot-password" className="forgot-link">QUÊN MẬT KHẨU?</Link>
                 </div>
                 <input
                   type="password"
@@ -100,18 +97,18 @@ function LoginPage() {
                     checked={remember}
                     onChange={() => setRemember(!remember)}
                   />
-                  <span>Remember this device</span>
+                  <span>Nhớ thiết bị này</span>
                 </label>
               </div>
 
               <button type="submit" className="signin-btn" disabled={loading}>
-                {loading ? 'SIGNING IN...' : 'SIGN IN'}
+                {loading ? 'ĐANG ĐĂNG NHẬP...' : 'ĐĂNG NHẬP'}
               </button>
             </form>
 
             <div className="register-section">
-              <p className="register-text">New to BookWorms?</p>
-              <Link to="/register" className="create-account-link">CREATE ACCOUNT</Link>
+              <p className="register-text">Là người mới ở AnimeCulture?</p>
+              <Link to="/register" className="create-account-link">TẠO TÀI KHOẢN</Link>
             </div>
           </div>
         </div>
